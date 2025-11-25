@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Avenir Bold';
+    src: url('./assets/fonts/AvenirLTStd-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+} 
