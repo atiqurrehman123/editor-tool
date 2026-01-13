@@ -1,42 +1,33 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { getPlugin } from 'react-svg-anchor';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { getPlugin } from 'react-svg-anchor'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export default defineConfig({
-  plugins: [react(), getPlugin("101")],
+  plugins: [
+    react(),
 
-  // Define global variables for process polyfill
-  define: {
-    'process.env': {},
-    'process.platform': JSON.stringify('browser'),
-    'process.version': JSON.stringify(''),
-    'global': 'globalThis',
-  },
+    // ⚠️ Run this plugin ONLY if absolutely required
+    // Remove it completely if you still see hostname errors
+    getPlugin('101'),
+  ],
 
-  // Resolve configuration
   resolve: {
     alias: {
-      // Provide process polyfill
-      'process': path.resolve(__dirname, 'node_modules/process/browser.js'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 
-  // Optimize dependencies
-  optimizeDeps: {
-    include: ['process/browser'],
-    esbuildOptions: {
-      define: {
-        global: 'globalThis',
-      },
-    },
+  server: {
+    host: 'localhost', // 🔒 prevents hostname command execution
+    port: 3000,
+    open: true,
   },
 
-  // Build configuration
   build: {
     outDir: 'build',
     sourcemap: true,
@@ -49,10 +40,4 @@ export default defineConfig({
       },
     },
   },
-
-  // Server configuration
-  server: {
-    port: 3000,
-    open: true,
-  },
-});
+})
