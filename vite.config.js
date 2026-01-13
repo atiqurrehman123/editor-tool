@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { getPlugin } from 'react-svg-anchor'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -10,10 +9,8 @@ const __dirname = path.dirname(__filename)
 export default defineConfig({
   plugins: [
     react(),
-
-    // ⚠️ Run this plugin ONLY if absolutely required
-    // Remove it completely if you still see hostname errors
-    getPlugin('101'),
+    // Removed react-svg-anchor plugin as it may cause build issues on Vercel
+    // If needed, re-enable with proper error handling
   ],
 
   resolve: {
@@ -23,14 +20,14 @@ export default defineConfig({
   },
 
   server: {
-    host: 'localhost', // 🔒 prevents hostname command execution
+    host: 'localhost',
     port: 3000,
     open: true,
   },
 
   build: {
     outDir: 'build',
-    sourcemap: true,
+    sourcemap: false, // Disable sourcemaps for production to reduce build size
     rollupOptions: {
       output: {
         manualChunks: {
@@ -39,5 +36,12 @@ export default defineConfig({
         },
       },
     },
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000,
+  },
+
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'fabric'],
   },
 })

@@ -178,7 +178,8 @@ const loadCliparts = () => {
   // running under Vite.
   const modules = import.meta.glob("../assets/cliparts/**/*.svg", {
     eager: true,
-    as: "url",
+    query: "?url",
+    import: "default",
   });
 
   const categories = {};
