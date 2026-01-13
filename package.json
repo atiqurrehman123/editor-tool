@@ -20,6 +20,7 @@
     "react-svg-anchor": "^1.0.0",
     "react-switch": "^7.1.0",
     "styled-components": "^6.1.18",
+    "tailwindcss": "^4.1.18",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -48,7 +49,9 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
     "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.23",
     "process": "^0.11.10",
     "vite": "^5.1.0",
     "vitest": "^1.2.0"
